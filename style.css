@@ -3,6 +3,7 @@ body{
     background:url("BG orbit.png");
     background-size:cover;
     background-position:center;
+    background-repeat:no-repeat;
     font-family:Arial,sans-serif;
     display:flex;
     justify-content:center;
@@ -11,20 +12,29 @@ body{
 }
 
 .login-box{
-    width:350px;
-    background:rgba(255,255,255,.08);
-    backdrop-filter:blur(15px);
+    width:420px;
+    padding:45px;
     border-radius:20px;
-    padding:40px;
-    color:white;
+    background:rgba(15,15,25,.55);
+    backdrop-filter:blur(20px);
+    border:1px solid rgba(255,255,255,.18);
+    box-shadow:0 0 40px rgba(130,100,255,.25);
 }
 
 h1{
+    color:white;
     text-align:center;
 }
 
-input,
-button{
+p{
+    color:white;
+    text-align:center;
+    margin-bottom:25px;
+}
+
+/* ช่องกรอก */
+
+input{
     width:100%;
     box-sizing:border-box;
     padding:14px;
@@ -34,6 +44,24 @@ button{
     font-size:16px;
 }
 
+/* ปุ่ม */
+
 button{
+    width:100%;
+    box-sizing:border-box;
+    padding:14px;
+    margin-top:15px;
+    border:none;
+    border-radius:12px;
+    background:#8b5cf6;
+    color:white;
+    font-size:16px;
+    font-weight:bold;
     cursor:pointer;
+    transition:.3s;
+}
+
+button:hover{
+    background:#9f6eff;
+    transform:translateY(-2px);
 }
