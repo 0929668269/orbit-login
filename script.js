@@ -66,6 +66,7 @@ window.login = async function () {
   }
 
 };
+
 // =================== REGISTER ===================
 window.register = async function () {
 
