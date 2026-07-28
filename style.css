@@ -23,18 +23,17 @@ h1{
     text-align:center;
 }
 
-input{
+input,
+button{
     width:100%;
-    padding:12px;
-    margin:10px 0;
+    box-sizing:border-box;
+    padding:14px;
+    margin:12px 0;
     border:none;
-    border-radius:10px;
+    border-radius:12px;
+    font-size:16px;
 }
 
 button{
-    width:100%;
-    padding:12px;
-    border:none;
-    border-radius:10px;
     cursor:pointer;
 }
