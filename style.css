@@ -1,6 +1,8 @@
 body{
     margin:0;
-    background:#090909;
+    background:url("ORBIT.png");
+    background-size:cover;
+    background-position:center;
     font-family:Arial,sans-serif;
     display:flex;
     justify-content:center;
