@@ -2,7 +2,8 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
 import {
   getAuth,
-  signInWithEmailAndPassword
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
 // Firebase Config
@@ -20,7 +21,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-// Login Function
+// =================== LOGIN ===================
 window.login = async function () {
 
   const email = document.getElementById("email").value.trim();
@@ -32,6 +33,7 @@ window.login = async function () {
   }
 
   try {
+
     await signInWithEmailAndPassword(auth, email, password);
 
     alert("Login Successful!");
@@ -42,6 +44,7 @@ window.login = async function () {
   } catch (error) {
 
     switch (error.code) {
+
       case "auth/invalid-email":
         alert("รูปแบบอีเมลไม่ถูกต้อง");
         break;
@@ -57,6 +60,48 @@ window.login = async function () {
 
       default:
         alert(error.message);
+
+    }
+
+  }
+
+};
+// =================== REGISTER ===================
+window.register = async function () {
+
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+
+  if (!email || !password) {
+    alert("กรุณากรอก Email และ Password");
+    return;
+  }
+
+  try {
+
+    await createUserWithEmailAndPassword(auth, email, password);
+
+    alert("สร้างบัญชีสำเร็จ! ตอนนี้สามารถ Login ได้แล้ว");
+
+  } catch (error) {
+
+    switch (error.code) {
+
+      case "auth/email-already-in-use":
+        alert("อีเมลนี้ถูกใช้งานแล้ว");
+        break;
+
+      case "auth/weak-password":
+        alert("รหัสผ่านต้องมีอย่างน้อย 6 ตัวอักษร");
+        break;
+
+      case "auth/invalid-email":
+        alert("รูปแบบอีเมลไม่ถูกต้อง");
+        break;
+
+      default:
+        alert(error.message);
+
     }
 
   }
