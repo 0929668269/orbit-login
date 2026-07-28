@@ -20,26 +20,45 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-// Login
-window.login = function () {
+// Login Function
+window.login = async function () {
 
-  const email = document.getElementById("email").value;
+  const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value;
 
-  signInWithEmailAndPassword(auth, email, password)
+  if (!email || !password) {
+    alert("กรุณากรอก Email และ Password");
+    return;
+  }
 
-    .then(() => {
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
 
-      alert("Login Successful");
+    alert("Login Successful!");
 
-      window.location.href = "https://sites.google.com/view/gmrorbitcommunity/%E0%B8%AB%E0%B8%99%E0%B8%B2%E0%B9%81%E0%B8%A3%E0%B8%81";
+    window.location.href =
+      "https://sites.google.com/view/gmrorbitcommunity/%E0%B8%AB%E0%B8%99%E0%B8%B2%E0%B9%81%E0%B8%A3%E0%B8%81";
 
-    })
+  } catch (error) {
 
-    .catch((error) => {
+    switch (error.code) {
+      case "auth/invalid-email":
+        alert("รูปแบบอีเมลไม่ถูกต้อง");
+        break;
 
-      alert(error.message);
+      case "auth/user-not-found":
+      case "auth/invalid-credential":
+        alert("ไม่พบอีเมลหรือรหัสผ่านไม่ถูกต้อง");
+        break;
 
-    });
+      case "auth/wrong-password":
+        alert("รหัสผ่านไม่ถูกต้อง");
+        break;
+
+      default:
+        alert(error.message);
+    }
+
+  }
 
 };
