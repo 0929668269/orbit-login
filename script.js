@@ -23,7 +23,8 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
 // =================== ORBIT WEBSITE URL ===================
-const ORBIT_URL = "https://sites.google.com/view/gmrorbitcommunity/home";
+const ORBIT_URL =
+  "https://sites.google.com/view/gmrorbitcommunity/home";
 
 // =================== LOGIN ===================
 window.login = async function () {
@@ -36,10 +37,10 @@ window.login = async function () {
   }
 
   try {
+    // ตรวจสอบบัญชี Firebase
     await signInWithEmailAndPassword(auth, email, password);
 
-    alert("Login Successful! Redirecting to ORBIT...");
-
+    // เข้าสู่เว็บไซต์ ORBIT ทันที ไม่ต้องกด OK
     window.location.replace(ORBIT_URL);
 
   } catch (error) {
@@ -57,7 +58,7 @@ window.login = async function () {
         break;
 
       case "auth/too-many-requests":
-        alert("มีการลองเข้าสู่ระบบหลายครั้งเกินไป กรุณารอสักครู่");
+        alert("ลองเข้าสู่ระบบหลายครั้งเกินไป กรุณารอสักครู่");
         break;
 
       case "auth/network-request-failed":
@@ -83,7 +84,7 @@ window.register = async function () {
   try {
     await createUserWithEmailAndPassword(auth, email, password);
 
-    alert("สร้างบัญชี ORBIT สำเร็จ! ตอนนี้สามารถเข้าสู่ระบบได้แล้ว");
+    alert("สร้างบัญชีสำเร็จ! ตอนนี้สามารถ Login ได้แล้ว");
 
   } catch (error) {
     console.error("Register error:", error.code, error.message);
