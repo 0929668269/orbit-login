@@ -40,6 +40,7 @@ window.login = async function () {
 
     window.location.href =
      https://sites.google.com/view/gmrorbitcommunity/home?authuser=0
+    
   } catch (error) {
 
     switch (error.code) {
