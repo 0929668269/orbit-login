@@ -39,7 +39,7 @@ window.login = async function () {
     alert("Login Successful!");
 
     window.location.href =
-     https://sites.google.com/view/gmrorbitcommunity/home?authuser=0
+      "https://sites.google.com/view/gmrorbitcommunity";
     
   } catch (error) {
 
