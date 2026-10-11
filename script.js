@@ -1,12 +1,13 @@
-// Import Firebase
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+
 import {
   getAuth,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
-// Firebase Config
+// =================== FIREBASE CONFIG ===================
 const firebaseConfig = {
   apiKey: "AIzaSyCqqcLtbu7lR3NgJrj18Ln-rPaLuBWuSxw",
   authDomain: "orbit-fca84.firebaseapp.com",
@@ -17,13 +18,15 @@ const firebaseConfig = {
   measurementId: "G-S5M77DHB89"
 };
 
-// Initialize Firebase
+// =================== INITIALIZE FIREBASE ===================
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
+// =================== ORBIT WEBSITE URL ===================
+const ORBIT_URL = "https://sites.google.com/view/gmrorbitcommunity/home";
+
 // =================== LOGIN ===================
 window.login = async function () {
-
   const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value;
 
@@ -33,43 +36,42 @@ window.login = async function () {
   }
 
   try {
-
     await signInWithEmailAndPassword(auth, email, password);
 
-    alert("Login Successful!");
+    alert("Login Successful! Redirecting to ORBIT...");
 
-    window.location.href =
-  "https://sites.google.com/view/gmrorbitcommunity/home";
-    
+    window.location.replace(ORBIT_URL);
+
   } catch (error) {
+    console.error("Login error:", error.code, error.message);
 
     switch (error.code) {
-
       case "auth/invalid-email":
         alert("รูปแบบอีเมลไม่ถูกต้อง");
         break;
 
       case "auth/user-not-found":
       case "auth/invalid-credential":
-        alert("ไม่พบอีเมลหรือรหัสผ่านไม่ถูกต้อง");
+      case "auth/wrong-password":
+        alert("อีเมลหรือรหัสผ่านไม่ถูกต้อง");
         break;
 
-      case "auth/wrong-password":
-        alert("รหัสผ่านไม่ถูกต้อง");
+      case "auth/too-many-requests":
+        alert("มีการลองเข้าสู่ระบบหลายครั้งเกินไป กรุณารอสักครู่");
+        break;
+
+      case "auth/network-request-failed":
+        alert("เชื่อมต่ออินเทอร์เน็ตไม่สำเร็จ กรุณาลองใหม่");
         break;
 
       default:
-        alert(error.message);
-
+        alert("เข้าสู่ระบบไม่สำเร็จ: " + error.message);
     }
-
   }
-
 };
 
 // =================== REGISTER ===================
 window.register = async function () {
-
   const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value;
 
@@ -79,15 +81,14 @@ window.register = async function () {
   }
 
   try {
-
     await createUserWithEmailAndPassword(auth, email, password);
 
-    alert("สร้างบัญชีสำเร็จ! ตอนนี้สามารถ Login ได้แล้ว");
+    alert("สร้างบัญชี ORBIT สำเร็จ! ตอนนี้สามารถเข้าสู่ระบบได้แล้ว");
 
   } catch (error) {
+    console.error("Register error:", error.code, error.message);
 
     switch (error.code) {
-
       case "auth/email-already-in-use":
         alert("อีเมลนี้ถูกใช้งานแล้ว");
         break;
@@ -100,11 +101,12 @@ window.register = async function () {
         alert("รูปแบบอีเมลไม่ถูกต้อง");
         break;
 
+      case "auth/network-request-failed":
+        alert("เชื่อมต่ออินเทอร์เน็ตไม่สำเร็จ กรุณาลองใหม่");
+        break;
+
       default:
-        alert(error.message);
-
+        alert("สร้างบัญชีไม่สำเร็จ: " + error.message);
     }
-
   }
-
 };
